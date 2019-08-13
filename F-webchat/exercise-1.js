@@ -32,6 +32,7 @@ Expected result
 When you open index.html in your browser, it should display the existing messages on the page.
 
 */
+
 function callback() {
 fetch('https://codeyourfuture.herokuapp.com/api/messages')
 .then(function(response) {
@@ -42,9 +43,7 @@ fetch('https://codeyourfuture.herokuapp.com/api/messages')
     var content = data.map(obj => obj.content)
     var datetime = data.map(obj => obj.datetime)
     for(var i=0; i < data.length; i++){
-        /*console.log(content[i]);
-        console.log(datetime[i]);*/
-        pant.innerHTML += `<p> ${datetime[i]} ---> ${content[i]} <p>`;
+        pant.innerHTML += `<div class="text"> ${datetime[i]} ---> ${content[i]} <div>`;
     }
 })
 .catch(error => error)
