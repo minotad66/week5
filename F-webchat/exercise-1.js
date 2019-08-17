@@ -33,20 +33,30 @@ When you open index.html in your browser, it should display the existing message
 
 */
 
-function callback() {
-fetch('https://codeyourfuture.herokuapp.com/api/messages')
-.then(function(response) {
-    return response.json();
-}).then((data) => {
+var pant = document.querySelector("#message-list");
+var chat = document.createElement('div');
+
+function chat_mensaje(value) {
     var pant = document.querySelector("#message-list")
-    pant.innerHTML = ``;
-    var content = data.map(obj => obj.content)
-    var datetime = data.map(obj => obj.datetime)
-    for(var i=0; i < data.length; i++){
-        pant.innerHTML += `<div class="text"> ${datetime[i]} ---> ${content[i]} <div>`;
-    }
-})
-.catch(error => error)
+        pant.innerHTML = ``;
+        chat.innerHTML = ``;
+        value.forEach(element => {
+            console.log(element);
+            let text = document.createElement('p');
+            let mensaje = document.createTextNode(`${element.datetime}  -->  ${element.content}`);
+            text.appendChild(mensaje);
+            chat.appendChild(text);
+            text.className = "text";
+        })
+        pant.appendChild(chat);
 }
 
-setInterval(callback, 2000);
+
+function callback() {
+    fetch('https://codeyourfuture.herokuapp.com/api/messages')
+    .then(response => response.json())
+    .then((data) => chat_mensaje(data))
+    .catch(error => error)
+    }
+    callback();
+    setInterval(callback, 2000);
